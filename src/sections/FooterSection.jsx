@@ -37,13 +37,13 @@ const FooterSection = () => {
 
         <div className="flex-center gap-5 relative z-10 md:mt-20 mt-5">
           <div className="social-btn">
-            <img src="./images/yt.svg" alt="" />
+            <img src="/images/yt.svg" alt="" />
           </div>
           <div className="social-btn">
-            <img src="./images/insta.svg" alt="" />
+            <img src="/images/insta.svg" alt="" />
           </div>
           <div className="social-btn">
-            <img src="./images/tiktok.svg" alt="" />
+            <img src="/images/tiktok.svg" alt="" />
           </div>
         </div>
 

@@ -1,44 +1,40 @@
-import NavBar from "./components/NavBar";
-import HeroSection from "./sections/HeroSection";
-import { ScrollSmoother, ScrollTrigger } from "gsap/all";
+import { ScrollTrigger } from "gsap/all";
 import gsap from "gsap";
-import MessageSection from "./sections/MessageSection";
-import FlavorSection from "./sections/FlavorSection";
-import { useGSAP } from "@gsap/react";
-import NutritionSection from "./sections/NutritionSection";
-import BenefitSection from "./sections/BenefitSection";
-import TestimonialSection from "./sections/TestimonialSection";
-import FooterSection from "./sections/FooterSection";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import Layout from "./components/Layout";
+import About from "./pages/About";
+import Home from "./pages/Home";
+import Product from "./pages/Product";
+import ProductDetails from "./pages/ProductDetails";
 
-gsap.registerPlugin(ScrollTrigger, ScrollSmoother);
+import { Navigate, useParams } from "react-router-dom";
+import { products } from "./constants/products";
+
+const LegacyRedirect = () => {
+  const { id } = useParams();
+  const product = products.find((p) => p.id === parseInt(id));
+  if (product) {
+    return <Navigate to={`/products/${product.slug}`} replace />;
+  }
+  return <Navigate to="/product" replace />;
+};
+
+gsap.registerPlugin(ScrollTrigger);
 
 const App = () => {
-  useGSAP(() => {
-    ScrollSmoother.create({
-      smooth: 3,
-      effects: true,
-    });
-  });
-
   return (
-    <main>
-      <NavBar />
-      <div id="smooth-wrapper">
-        <div id="smooth-content">
-          <HeroSection />
-          <MessageSection />
-          <FlavorSection />
-          <NutritionSection />
-
-          <div>
-            <BenefitSection />
-            <TestimonialSection />
-          </div>
-
-          <FooterSection />
-        </div>
-      </div>
-    </main>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Layout />}>
+          <Route index element={<Home />} />
+          <Route path="about" element={<About />} />
+          <Route path="product" element={<Product />} />
+          <Route path="products/:slug" element={<ProductDetails />} />
+          {/* Legacy Redirect for old links like /product/3 */}
+          <Route path="product/:id" element={<LegacyRedirect />} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
   );
 };
 
