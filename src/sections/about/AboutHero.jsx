@@ -25,7 +25,7 @@ const AboutHero = () => {
     });
 
     return (
-        <section className="h-screen w-full bg-main-bg flex flex-col justify-center items-center relative overflow-hidden">
+        <section className="h-dvh w-full bg-main-bg flex flex-col justify-center items-center relative overflow-hidden">
             <div className="text-center z-10">
                 <h1 className="about-hero-title 2xl:text-[10rem] md:text-9xl text-6xl font-bold uppercase text-milk leading-none tracking-tighter">
                     Our Story

@@ -13,24 +13,30 @@ const Layout = () => {
 
   useGSAP(
     () => {
-      // Ensure fonts are loaded before initializing heavily dependent plugins if possible, 
-      // though ScrollSmoother handles layout. A small delay or check helps.
-      // But the primary error "Please gsap.registerPlugin" is fixed by the global register above.
-
-      // Force scroll to top on route change
+      // Force scroll to top immediately
       window.scrollTo(0, 0);
+
+      // Normalize scroll for mobile stability
+      ScrollTrigger.normalizeScroll(true);
 
       // Create ScrollSmoother
       const smoother = ScrollSmoother.create({
         smooth: 2,
         effects: true,
+        smoothTouch: 0.1, // Slight smoothing on touch for better feel
+        normalizeScroll: true, // Auto-enable normalizeScroll
+        ignoreMobileResize: true, // Prevents jitters on address bar toggle
       });
 
-      // Reset any ScrollTrigger pins or state
-      ScrollTrigger.refresh();
+      // Refresh ScrollTrigger after a slight delay to ensure layout is ready
+      const timer = setTimeout(() => {
+        ScrollTrigger.refresh();
+      }, 100);
 
       return () => {
+        clearTimeout(timer);
         if (smoother) smoother.kill();
+        ScrollTrigger.normalizeScroll(false); // Clean up normalization
       };
     },
     { dependencies: [location.pathname] }
@@ -39,6 +45,8 @@ const Layout = () => {
   // Use useLayoutEffect for immediate scroll reset before paint
   useLayoutEffect(() => {
     window.scrollTo(0, 0);
+    // Explicitly refresh ScrollTrigger on route change
+    ScrollTrigger.refresh();
   }, [location.pathname]);
 
   return (

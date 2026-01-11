@@ -51,7 +51,7 @@ const AboutStory = () => {
     });
 
     return (
-        <section className="story-section h-screen bg-dark-brown relative overflow-hidden flex justify-center items-center">
+        <section className="story-section h-dvh bg-dark-brown relative overflow-hidden flex justify-center items-center">
             {/* Parallax Background Elements */}
             <div className="parallax-bg absolute top-0 left-0 w-full h-[120%] opacity-20 pointer-events-none z-0">
                 <div className="absolute top-[20%] left-[10%] w-64 h-64 bg-light-brown rounded-full mix-blend-overlay blur-3xl"></div>
@@ -63,7 +63,7 @@ const AboutStory = () => {
                 <div className="w-full h-full bg-cover bg-center" style={{ backgroundImage: 'url(/images/p1.png)', filter: 'brightness(0.6)' }}></div>
             </div>
 
-            <div className="story-content absolute z-10 text-center px-5">
+            <div className="story-content absolute inset-0 flex flex-col justify-center items-center z-10 text-center px-5 pointer-events-none">
                 <h2 className="story-title text-milk 2xl:text-8xl md:text-7xl text-5xl font-bold uppercase mb-8 overflow-hidden">
                     The Origin
                 </h2>
